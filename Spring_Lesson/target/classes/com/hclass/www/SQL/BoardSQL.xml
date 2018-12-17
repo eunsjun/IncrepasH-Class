@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD 3.0//EN" 
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bSQL">
+
+	<select id="boardAll" resultType="bVO">
+		SELECT
+			B_NO AS no,
+			B_TITLE AS title,
+			b_id as id,
+			b_body as reBody,
+			to_char(b_date, 'yyyy/mm/dd hh24:mi:ss') as sDate,
+			b_hit as hit
+		FROM
+			BOARD
+		WHERE
+			B_ISSHOW = 'Y'
+	</select>
+
+</mapper>

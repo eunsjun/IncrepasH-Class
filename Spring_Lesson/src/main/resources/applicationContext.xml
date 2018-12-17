@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- 
+		보조적으로 사용할 클래스를 스프링에서는 xml 파일을 이용해서 new 시킬 수 있다.
+		이때 사용하는 명령이
+		<bean id="변수이름" class="사용할 클래스패스 + 이름"></bean>
+		
+		참고]
+			new 시킬때 필요한 데이터를 알려줄 수도 있다.
+			(생성자 함수의 매개변수를 이용해서 데이터를 기억하듯....)
+			<property name="변수이름" value="데이터" />
+	 -->
+	
+	<bean id="greeter" class="com.hclass.www.controller.sample.Greeter">
+		<property name="format" value="%s, 안녕하세요!" />
+	</bean>
+</beans>

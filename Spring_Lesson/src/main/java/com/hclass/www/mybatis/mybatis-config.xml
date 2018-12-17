@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration 
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+			"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- myBatis 활동 방식 설정 -->
+	<settings>
+		<setting name="cacheEnabled" value="false" />
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="defaultExecutorType" value="REUSE" />
+	</settings>
+	
+	<!-- 
+		myBatis에서 사용하는 데이터 형태를 간략하게 줄여서 
+		사용할 수 있도록 데이터 형태의 별칭을 선언하는 부분
+		
+		한마디로 VO를 매핑처리하는 부분
+	-->
+	<typeAliases>
+		<!-- <typeAlias alias="int" type="java.lang.Integer" /> -->
+		<typeAlias alias="mVO" type="com.hclass.www.vo.MemberVO" />
+		<typeAlias alias="bVO" type="com.hclass.www.vo.BoardVO" />
+	</typeAliases>
+	
+	<!-- 
+		질의 명령을 저장한 xml 파일의 경로와 파일의 이름을 등록하는 부분
+	-->
+	<mappers>
+		<mapper resource="com/hclass/www/SQL/MemberSQL.xml" />
+		<mapper resource="com/hclass/www/SQL/BoardSQL.xml" />
+	</mappers>
+	
+</configuration>

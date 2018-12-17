@@ -28,6 +28,7 @@
 <script>
 	$(document).ready(function(){
 		var ssID = '${SID}';
+		
 		if(!ssID){
 			// 세션에 아이디 없는 경우
 		} else {

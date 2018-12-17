@@ -28,12 +28,6 @@
 <script>
 	$(document).ready(function(){
 		var ssID = '${SID}';
-		// 자바스크립트에서는 변수를 조건절에 사용할 경우
-		// 변수가  undefined, null 일 경우 false를 반환한다.
-		// 다시 말해서 변수에 데이터가 들어있는 경우는 true 일 것이다.
-		// 	만일 풀어서 조건절을 기술한다면
-		// ==> (ssID == undefined || ssID == null || ssID == '' || ssID.length == 0)
-		//		==> (!ssID)
 		if(!ssID){
 			// 세션에 아이디 없는 경우
 		} else {

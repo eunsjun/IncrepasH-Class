@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	
+<!-- 
+		이 파일은 등록된 서블릿의 환경을 설정할 xml 파일의 역할을 할 예정이다.
+		이 파일은 서블릿을 등록할 때 환경 설정 파일로 등록되었기 때문에
+		그 위치에  그 이름으로 만들어야 한다.
+		
+		참고]
+			xml 파일이 되기 위한 필수 조건
+			1. 반드시 첫번째 줄 헤더가 존재해야 한다.
+				예]
+					<?xml version="1.0" encoding="UTF-8"?>
+			2. 반드시 root태그가 한 개 존재해야 한다.
+				예]
+					<root_1>
+						<sub1></sub1>
+					</root_1>			// 이것은 가능한 경우
+					
+
+					# 불가능한 경우
+					<root_1>
+					
+					</root_1>
+					<root_2>
+					</root_2>
+
+			3. 필요하다면 DTD나 스키마를 등록할 수 있다.
+				DTD/스키마 란???
+					xml 문서에서 사용하는 태그의 의미와 순서(위치)를 지정한 템플릿파일(규정집?)을 말한다.
+					만약 DTD, 스키마 를 이용하면
+					DTD,스키마에서 지정한 태그 이외에는 사용 못하게 된다.
+					
+			참고]
+				xml 파일은 프로그램이 읽어서(분석 또는 해석해서 - 파싱해서)
+				프로그램에 반영할 목적으로 만든다.
+				따라서 약속된 규칙에 의해서 만들어 줘야한다.
+				그 약속된 규칙을 지정한 부분이 DTD, 스키마 이다.
+				
+			결론]
+				스프링에서 사용하는 xml 파일은 
+				스프링이 해석가능하게 만들어 줘야한다.
+	-->
+<beans:beans 
+	xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+						http://www.springframework.org/schema/mvc/spring-mvc.xsd
+						http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	
+	<!-- 다른 스키마에서 제공하는 태그도 파싱이 가능하도록 설정해주는 부분 -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	
+	<!-- 이미지 파일등 컨트롤러를 거치지 않는 파일을 사용 가능하도록 해주는 설정
+		 이런 유형의 파일은 저장될 장소를 지정해줘야 한다.
+	 -->
+	<resources mapping="/resources/**" location="/resources/" />
+	<!--
+		자바스크립트나 css 처럼 컨트롤러를 거치지 않는 파일을 사용할 경로를 지정하는 부분
+	-->
+	<resources mapping="/js/**" location="/resources/js/" />
+	<resources mapping="/css/**" location="/resources/css/" />
+
+	<!-- 
+		*****
+		사용할 뷰의 경로 설정 부분
+		
+		jsp 프로젝트에서는 뷰를 지정할 때
+		../com/view/member/login.jsp 의 방식으로 호출을 했다.
+		
+		스프링에서는 공통적으로 적용될 부분을 미리 지정을 해서
+		실제 뷰는 달라지는 부분만(파일이름) 등록할 수 있도록 조치를 취해 놓았다.
+	 -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<!-- 컨트롤러를 거치는 뷰의 루트 경로 -->
+		<beans:property name="suffix" value=".jsp" />
+		<!-- 뷰에 사용할 파일에서 공통적으로 들어가는 부분 -->
+		
+		<!-- 우리가 사용하는 일반 뷰의 우선순위를 1로 조정 -->
+		<beans:property name="order" value="1"></beans:property>
+	</beans:bean>
+	
+	<!-- 
+		우리는 앞으로 모든 뷰는
+		/WEB-INF/view/member/login.jsp
+		/WEB-INF/view/board/boardList.jsp
+		로 사용하겠다고 결정을 했다.
+		
+		/WEB-INF/views/
+		.jsp				==> 등록을 하면
+		
+		나중에 뷰를 부를때는 
+			member/login		==> 	/WEB-INF/view/member/login.jsp
+			board/boardList		==> 	/WEB-INF/view/board/boardList.jsp
+		이렇게 자동으로 완성해서 뷰를 호출 하게 된다.
+	-->
+	
+	<!-- 베이스 패키지 경로 -->
+	<context:component-scan base-package="com.hclass.www" />
+	
+	<!-- bean 처리 방법 1 -->
+	<!-- <beans:bean id="memberDAO" class="com.hclass.www.DAO.MemberDAO"></beans:bean> -->
+</beans:beans>

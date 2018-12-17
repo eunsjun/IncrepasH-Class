@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- 
+		다른 스키마에 있는 내용을 읽을 수 있도록 선언
+		이 annotation-config 태그는 기본 xml에서는 제공하지 않는 태그이다.
+		이 태그를 사용하도록 하기 위해서는 context라는 스키마를 사용하겠다고 선언을 해줘야 한다.
+		
+		1. 스키마 사용을 선언해 주고
+		2. 해당 스키마를 해석할 수 있는 도구를 지정해야 한다.
+	-->
+	<context:annotation-config />
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- 
+		먼저 dataSource 사용을 등록해주자.
+		WebDBCP 클래스가 다른곳에 주입되어하므로 <bean>처리가 되어야 한다.
+	-->
+	<bean id="dbcp" class="com.hclass.www.util.WebDBCP" />
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="username" value="increpas" />
+		<property name="password" value="increpas" />
+		
+		<property name="maxActive" value="8" />
+	</bean>
+
+	<!-- myBatis 환경 설정 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- <property name="configLocation" value="classpath:/com/hclass/www/mybatis/mybatis-config.xml"></property> -->
+		<property name="configLocation" value="classpath:/com/hclass/www/mybatis/mybatis-config.xml"></property>
+	</bean>
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+	
+	<!-- DAO class 빈 처리 -->
+	<!-- <bean id="mDAO" class="com.hclass.www.DAO.MemberDAO" /> -->
+	<import resource="./appServlet/daoContext.xml" />
+
+	<!-- Service Class 빈처리 -->
+	<import resource="./appServlet/serviceContext.xml" />
+	
+	<!-- <bean id="mVO" class="com.hclass.www.vo.MemberVO"></bean> -->
+</beans>

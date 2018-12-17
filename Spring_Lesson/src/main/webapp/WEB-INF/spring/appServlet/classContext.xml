@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans 
+	xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+						http://www.springframework.org/schema/mvc/spring-mvc.xsd
+						http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+	<!-- 다른 스키마에서 제공하는 태그도 파싱이 가능하도록 설정해주는 부분 -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	
+	<!-- 이미지 파일등 컨트롤러를 거치지 않는 파일을 사용 가능하도록 해주는 설정
+		 이런 유형의 파일은 저장될 장소를 지정해줘야 한다.
+	 -->
+	<resources mapping="/resources/**" location="/resources/" />
+	<!--
+		자바스크립트나 css 처럼 컨트롤러를 거치지 않는 파일을 사용할 경로를 지정하는 부분
+	-->
+	<resources mapping="/js/**" location="/resources/js/" />
+	<resources mapping="/css/**" location="/resources/css/" />
+
+	<!-- 
+		*****
+		사용할 뷰의 경로 설정 부분
+		
+		jsp 프로젝트에서는 뷰를 지정할 때
+		../com/view/member/login.jsp 의 방식으로 호출을 했다.
+		
+		스프링에서는 공통적으로 적용될 부분을 미리 지정을 해서
+		실제 뷰는 달라지는 부분만(파일이름) 등록할 수 있도록 조치를 취해 놓았다.
+	 -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<!-- 컨트롤러를 거치는 뷰의 루트 경로 -->
+		<beans:property name="suffix" value=".jsp" />
+		<!-- 뷰에 사용할 파일에서 공통적으로 들어가는 부분 -->
+		
+		<!-- 우리가 사용하는 일반 뷰의 우선순위를 1로 조정 -->
+		<beans:property name="order" value="1"></beans:property>
+	</beans:bean>
+	
+	<!-- 
+		우리는 앞으로 모든 뷰는
+		/WEB-INF/view/member/login.jsp
+		/WEB-INF/view/board/boardList.jsp
+		로 사용하겠다고 결정을 했다.
+		
+		/WEB-INF/views/
+		.jsp				==> 등록을 하면
+		
+		나중에 뷰를 부를때는 
+			member/login		==> 	/WEB-INF/view/member/login.jsp
+			board/boardList		==> 	/WEB-INF/view/board/boardList.jsp
+		이렇게 자동으로 완성해서 뷰를 호출 하게 된다.
+	-->
+	
+	<!-- 베이스 패키지 경로 -->
+	<context:component-scan base-package="com.hclass.www" />
+</beans:beans>

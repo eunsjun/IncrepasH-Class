@@ -93,11 +93,18 @@
 		});
 		
 		 --%>
+		 <c:if test="${not empty SID}">
+		 	$(".nanum").addClass("w3-quarter");
+		 </c:if>
+		 
+		 <c:if test="${empty SID}">
+		 	$(".nanum").addClass("w3-third");
+		 </c:if>
 	});
 </script>
 </head>
 <body>
-	<form method="POST" action="/JSP_Lesson/pr2/board/BoardView.class" id="frm">
+	<form method="POST" action="/WEB/board/BoardView.class" id="frm">
 		<input type="hidden" name="no" id="no" />
 		<input type="hidden" name="pno" id="pno" />
 		<input type="hidden" name="nno" id="nno" />
@@ -108,10 +115,12 @@
 		<div class="w3-row">
 			<h2 class="w3-content w3-blue w3-card-4">H-Class Board</h2>
 			<div class="w3-row w3-content w3-card-4 w3-margin-bottom">
-				<div class="w3-cell w3-quarter w3-button w3-pink" id="btn1">로그인 페이지</div>
-				<div class="w3-cell w3-quarter w3-button w3-teal" id="brdwrite">게시판 글쓰기</div>
-				<div class="w3-cell w3-quarter w3-button w3-blue" id="btn2">설문조사 페이지</div>
-				<div class="w3-cell w3-quarter w3-button w3-amber" id="btn3">방명록 페이지</div>
+				<div class="w3-cell w3-button w3-pink nanum" id="btn1">로그인 페이지</div>
+				<c:if test="${not empty SID}">
+				<div class="w3-cell w3-button w3-teal nanum" id="brdwrite">게시판 글쓰기</div>
+				</c:if>
+				<div class="w3-cell w3-button w3-blue nanum" id="btn2">설문조사 페이지</div>
+				<div class="w3-cell w3-button w3-amber nanum" id="btn3">방명록 페이지</div>
 			</div>
 		</div>
 		
@@ -129,7 +138,7 @@
 				</div>
 			</div>
 		</c:if>
-		<c:if test="${not empty LIST }">
+		<c:if test="${not empty LIST}">
 			<c:forEach var="data" items="${LIST}">
 			<%-- <c:if test="${data.rno >= (PAGE.nowPage * PAGE.pageRow - 2) and data.rno <= (PAGE.nowPage * PAGE.pageRow) }"> --%>
 			<div class="w3-row w3-container w3-round-large w3-card-4 w3-border-blue btmargin bdata" id="f${data.no}">

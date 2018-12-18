@@ -38,7 +38,7 @@ $(function(){
 	<div class="w3-col m6">
 		<h2 class="w3-pink w3-center w3-margin-top w3-margin-bottom w3-card-4 w3-round-large">H-Class 게시판 글쓰기</h2>
 		<div class="w3-container w3-round-large w3-card-4">
-			<form method="POST" action="/JSP_Lesson/pr2/board/BoardWriteProc.class" id="frm" enctype="multipart/form-data">
+			<form method="POST" action="/WEB/board/BoardWriteProc.class" id="frm" enctype="multipart/form-data">
 				<div class="w3-container w3-margin-top">
 					<label for="id" class="w3-col m2 w3-label mid"><h4 class="w3-right w3-padding w3-text-gray">I D : </h4></label>
 					<input class="w3-col m10 w3-input w3-padding" type="text" name="id" id="id" value="${SID}" readonly />

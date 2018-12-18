@@ -10,7 +10,7 @@
 			B_TITLE AS title,
 			b_id as id,
 			b_body as reBody,
-			to_char(b_date, 'yyyy/mm/dd hh24:mi:ss') as sDate,
+			to_char(b_date, 'yyyy/mm/dd<!--  hh24:mi:ss -->') as sDate,
 			b_hit as hit
 		FROM
 			BOARD

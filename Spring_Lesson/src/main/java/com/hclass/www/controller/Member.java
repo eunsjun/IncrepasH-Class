@@ -1,6 +1,6 @@
-package com.hclass.www.controller.member;
+package com.hclass.www.controller;
 
-import java.util.ArrayList;
+import java.util.*;
 
 import javax.servlet.http.*;
 

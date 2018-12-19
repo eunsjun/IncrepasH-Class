@@ -1,6 +1,7 @@
 package com.hclass.www.vo;
 
 public class BoardVO {
+	private int rno;
 	private int no;
 	private String title;
 	private String id;
@@ -8,6 +9,12 @@ public class BoardVO {
 	private String reBody;
 	private String sDate;
 	private int hit;
+	public int getRno() {
+		return rno;
+	}
+	public void setRno(int rno) {
+		this.rno = rno;
+	}
 	public int getNo() {
 		return no;
 	}

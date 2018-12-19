@@ -49,7 +49,7 @@
 			$(location).attr('href', '/WEB/board/BoardWriteForm.class');
 		});
 		
-		<%-- 
+
 		$('.bdata').click(function(){
 			var sno = $(this).attr('id'); // f10003 ==> 10003
 			sno = sno.substring(1);
@@ -58,8 +58,8 @@
 			$(location).attr('href', '/JSP_Lesson/pr2/board/BoardView.class?bno='+sno+'&id='+id);
 			// localhost/JSP_Lesson/pr2/board/BoardView.class?bno=10003&id=abcd
 			*/
-			$('#bno').val(sno);
-			
+			$('#no').val(sno);
+			/* 
 			// 이전 글, 다음글 번호추출
 			var pno = $(this).prev().attr('id');
 			var nno = $(this).next().attr('id');
@@ -71,10 +71,10 @@
 				nno = nno.substring(1);
 				$('#nno').val(nno);
 			}
-			
+			 */
 			$('#frm').submit();
 		});
-		
+<%--		
 		$('.page').click(function(){
 			var str = $(this).html();
 			var loc = './BoardList.class?nowPage=' + str;

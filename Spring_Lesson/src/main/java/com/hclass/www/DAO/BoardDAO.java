@@ -23,4 +23,12 @@ public class BoardDAO {
 		ArrayList<BoardVO> list = (ArrayList) sqlSession.selectList("bSQL.boardAll");
 		return list;
 	}
+	
+	public HashMap boardDetail(int bno) {
+		return (HashMap) sqlSession.selectOne("bSQL.selectDetail", bno);
+	}
+	
+	public BoardVO boardBno(int bno) {
+		return sqlSession.selectOne("bSQL.selBno", bno);
+	}
 }

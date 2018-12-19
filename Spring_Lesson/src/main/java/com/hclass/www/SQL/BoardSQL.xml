@@ -6,6 +6,7 @@
 
 	<select id="boardAll" resultType="bVO">
 		SELECT
+			rno,
 			B_NO AS no,
 			B_TITLE AS title,
 			b_id as id,
@@ -13,9 +14,41 @@
 			to_char(b_date, 'yyyy/mm/dd<!--  hh24:mi:ss -->') as sDate,
 			b_hit as hit
 		FROM
-			BOARD
+			BOARDRNO
 		WHERE
 			B_ISSHOW = 'Y'
+		ORDER BY
+			b_date desc
+	</select>
+
+	<select id="selectDetail" resultType="hashMap" parameterType="int">
+		SELECT
+			rno,
+			B_NO AS no,
+			B_TITLE AS title,
+			b_id as id,
+			b_body as reBody,
+			to_char(b_date, 'yyyy/mm/dd hh24:mi:ss') as sDate,
+			b_hit as hit
+		FROM
+			BOARDRNO
+		WHERE
+			B_ISSHOW = 'Y'
+			AND B_NO = #{bno}
+	</select>
+	
+	<select id="selBno" resultType="bVO" parameterType="int">
+		SELECT
+			B_NO AS no,
+			B_TITLE AS title,
+			b_id as id,
+			b_body as reBody,
+			to_char(b_date, 'yyyy/mm/dd hh24:mi:ss') as sDate,
+			b_hit as hit
+		FROM
+			BOARD
+		WHERE
+			B_NO = #{bno}
 	</select>
 
 </mapper>

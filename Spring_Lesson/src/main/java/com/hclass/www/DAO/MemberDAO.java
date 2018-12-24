@@ -56,9 +56,15 @@ public class MemberDAO {
 	}
 	
 	/* 아이디 조회 처리 함수 */
-	public int countID(String sid) {
+	public int countID(String id) {
 		int cnt = 0;
-		cnt = sqlSession.selectOne("memberSQL.countID", sid);
+		cnt = sqlSession.selectOne("memberSQL.countID", id);
 		return cnt;
+	}
+	
+	// 회원 정보 업데이트 처리 함수
+	public void updateID(MemberVO mVO) {
+		System.out.println("############### mail : " + mVO.getMail());
+		sqlSession.update("memberSQL.updateMbr", mVO);
 	}
 }

@@ -8,5 +8,6 @@
 						http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 	<bean id="mSrvc" class="com.hclass.www.services.MemberService" />
+	<bean id="bSrvc" class="com.hclass.www.services.BoardService" />
 	
 </beans>

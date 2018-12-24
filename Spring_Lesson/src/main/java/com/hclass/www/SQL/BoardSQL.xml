@@ -3,16 +3,26 @@
 	PUBLIC "-//mybatis.org//DTD 3.0//EN" 
 			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bSQL">
+	
+	<sql id="selectCol">
+		B_NO AS no,
+		B_TITLE AS title,
+		b_id as id,
+		b_body as reBody,
+		b_hit as hit,
+	</sql>
 
 	<select id="boardAll" resultType="bVO">
 		SELECT
 			rno,
-			B_NO AS no,
+			<!-- B_NO AS no,
 			B_TITLE AS title,
 			b_id as id,
 			b_body as reBody,
-			to_char(b_date, 'yyyy/mm/dd<!--  hh24:mi:ss -->') as sDate,
-			b_hit as hit
+			to_char(b_date, 'yyyy/mm/dd hh24:mi:ss') as sDate,
+			b_hit as hit -->
+			<include refid="selectCol" />
+			to_char(b_date, 'yyyy/mm/dd') as sDate
 		FROM
 			BOARDRNO
 		WHERE
@@ -20,16 +30,18 @@
 		ORDER BY
 			b_date desc
 	</select>
-
+	
 	<select id="selectDetail" resultType="hashMap" parameterType="int">
 		SELECT
 			rno,
-			B_NO AS no,
+			<!-- B_NO AS no,
 			B_TITLE AS title,
 			b_id as id,
 			b_body as reBody,
 			to_char(b_date, 'yyyy/mm/dd hh24:mi:ss') as sDate,
-			b_hit as hit
+			b_hit as hit -->
+			<include refid="selectCol" />
+			to_char(b_date, 'yyyy/mm/dd hh24:mi:ss') as sDate
 		FROM
 			BOARDRNO
 		WHERE
@@ -39,16 +51,42 @@
 	
 	<select id="selBno" resultType="bVO" parameterType="int">
 		SELECT
-			B_NO AS no,
+			<include refid="selectCol" />
+			to_char(b_date, 'yyyy/mm/dd hh24:mi:ss') as sDate
+			<!-- B_NO AS no,
 			B_TITLE AS title,
 			b_id as id,
 			b_body as reBody,
 			to_char(b_date, 'yyyy/mm/dd hh24:mi:ss') as sDate,
-			b_hit as hit
+			b_hit as hit -->
 		FROM
 			BOARD
 		WHERE
 			B_NO = #{bno}
 	</select>
+	
+	<select id="fileInfo" resultType="fileVO" parameterType="int">
+		SELECT
+			fi_no as fno,
+			fi_bno as bno,
+			fi_oriname as oname,
+			fi_savename as sname,
+			fi_len as len,
+			fi_dir as dir,
+			fi_down as down
+		FROM
+			fi_board
+		WHERE
+			fi_bno = #{bno}
+	</select>
+	
+	<update id="addHit" parameterType="fileVO">
+		UPDATE
+			FI_BOARD
+		SET
+			FI_DOWN = FI_DOWN + 1
+		WHERE
+			FI_SAVENAME = #{sName}
+	</update>
 
 </mapper>

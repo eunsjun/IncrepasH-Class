@@ -16,6 +16,8 @@
 	$(function(){
 		var chk = "N";
 		
+		var sno = ${VO.mNo};
+		
 		$('#pw').focus(function(){
 			var tpw = $(this).val();
 			var pstat = $('#hdn1').css('display');
@@ -91,7 +93,7 @@
 				return;
 			}
 			$.ajax({
-				url: "/JSP_Lesson/MemberEditProc.edit",
+				url: "../member/MemberEditProc.edit",
 				type: "post",
 				dataType: "text",
 				data:{
@@ -109,11 +111,18 @@
 		});
 		$('#mailedit').click(function(){
 			var smail = $('#mail').val();
+			var mlen = smail.length;
 			if(!smail || smail == '${VO.mail}'){
 				return;
 			}
+			if(mlen > 16){
+				alert('mail 길이가 너무 깁니다!');
+				$('#mail').val('${VO.mail}');
+				return;
+			}
+			/*
 			$.ajax({
-				url: "/JSP_Lesson/MemberEditProc.edit",
+				url: "../member/MemberEditProc.edit",
 				type: "post",
 				dataType: "text",
 				data:{
@@ -127,21 +136,21 @@
 					alert('# 수정에 실패했습니다.');
 				}
 			});
-			
+			*/
 		});
 		
 		$('#langedit').click(function(){
-			var smail = $('#mail').val();
-			if(!smail || smail == '${VO.mail}'){
+			var slang = $('#lang').val();
+			if(!slang || slang == '${VO.lang}'){
 				return;
 			}
 			$.ajax({
-				url: "/JSP_Lesson/MemberEditProc.edit",
+				url: "../member/MemberEditProc.edit",
 				type: "post",
 				dataType: "text",
 				data:{
-					mail: smail,
-					btn: "imail"
+					lang: slang,
+					btn: "ilang"
 				},
 				success: function(data){
 					alert('# 수정했습니다.');
@@ -160,7 +169,7 @@
 	<div class="w3-col m3"><p></p></div>
 	<div class="w3-col m6 w3-container w3-margin-top">
 		<h2 class="w3-content w3-center w3-pink w3-round-large w3-card-2 w3-padding">회원가입</h2>
-		<form method="POST" action="/pr2/member/MemberEditProc.class" name="frm" id="frm" class="w3-content w3-margin-top w3-card-2 w3-round-large w3-padding">
+		<form method="POST" action="../member/MemberEditProc.class" name="frm" id="frm" class="w3-content w3-margin-top w3-card-2 w3-round-large w3-padding">
 			<div class="w3-row w3-margin-top">
 				<label class="w3-col m3" for="name" ><h4 class="w3-content w3-center w3-text-grey">Name </h4></label>
 				<div class="w3-col m9" id="name">${VO.name}</div>

@@ -1,9 +1,11 @@
 package com.hclass.www.controller;
 
+import java.io.*;
 import java.util.*;
 
 import javax.servlet.http.*;
 
+import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
@@ -68,12 +70,15 @@ public class Member {
 	@RequestMapping("Logout.class")
 	public String logoutProc(HttpSession session) {
 		String view ="member/login";
+		
+		Logger logger = LoggerFactory.getLogger(Member.class);
+		logger.debug((String) session.getAttribute("SID") + " 님이 로그아웃했습니다.");
 		mSrvc.logout(session);
 		return view;
 	}
 	// 회원 가입 처리 함수
 	@RequestMapping("joinProc.class")
-	public ModelAndView joinProc(ModelAndView mv, MemberVO mVO) {
+	public ModelAndView joinProc(ModelAndView mv, MemberVO mVO, HttpSession session) {
 		// 이 함수는 회원가입 양식을 작성한 사람이 요청하는 함수이다.
 		String view = "board/board";
 		
@@ -82,7 +87,8 @@ public class Member {
 		// 데이터 받고
 		
 		// 데이터 넘기고
-		
+		// 세션 처리하고
+		mSrvc.sessionProc(session, mVO);
 		// 뷰 보내고
 		mv.setViewName(view);
 		return mv;
@@ -102,5 +108,37 @@ public class Member {
 		// 뷰를 부른다.
 		mv.setViewName(view);
 		return mv;
+	}
+	
+	// 회원 정보 수정 처리 요청
+	@RequestMapping("MemberEditProc.edit")
+	public void memberEdit(HttpServletResponse resp, HttpSession session, MemberVO mVO) {
+		System.out.println("############");
+		String val = "success!";
+		String sid = (String) session.getAttribute("SID");
+		/*
+		switch (sbtn) {
+		case "ipw":
+			mVO.setPw(req.getParameter("pw"));
+			break;
+		case "imail":
+			mVO.setMail(req.getParameter("mail"));
+			break;
+		case "ilang":
+			mVO.setLang(req.getParameter("lang"));
+			break;
+		}
+		*/
+		mVO.setId(sid);
+		//mVO.setBtn(sbtn);
+		
+		mDAO.updateID(mVO);
+		try {
+			PrintWriter pwr = resp.getWriter();
+			pwr.print("success!");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return;
 	}
 }

@@ -31,4 +31,15 @@ public class BoardDAO {
 	public BoardVO boardBno(int bno) {
 		return sqlSession.selectOne("bSQL.selBno", bno);
 	}
+	
+	// 파일 정보 가져오기 함수
+	public List<FileVO> fileInfo(int bno) {
+		return sqlSession.selectList("bSQL.fileInfo", bno);
+	}
+	
+	// 파일 다운수 처리 함수
+	public void updateHit(FileVO fileVO) {
+		sqlSession.update("bSQL.addHit", fileVO);
+		return;
+	}
 }

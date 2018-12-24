@@ -92,13 +92,37 @@
 						
 	-->
 <!-- 	<select id="Login" resultType="" parameterType="com.hclass.www.vo.MemberVO"> -->
-	<select id="Login" resultType="int" parameterType="mVO">
+	
+	<!-- 자주 사용하는 내용은 한번만 만들어서 재 사용할 수 있다. -->
+	<sql id="cntId">
 		SELECT
 			COUNT(*) AS CNT
 		FROM
 			member
 		WHERE
 			M_ID = #{id}
+	</sql>
+	
+	<!-- 회원 아이디 조회 질의명령 -->
+	<select id="countID" resultType="int" parameterType="string">
+		<include refid="cntId" />
+		<!-- SELECT
+			COUNT(*) AS CNT
+		FROM
+			member
+		WHERE
+			M_ID = #{id} -->
+	</select>
+	
+	
+	<select id="Login" resultType="int" parameterType="mVO">
+		<include refid="cntId" />
+		<!-- SELECT
+			COUNT(*) AS CNT
+		FROM
+			member
+		WHERE
+			M_ID = #{id} -->
 			AND M_PW = #{pw}
 	</select>
 		<!--  
@@ -117,7 +141,7 @@
 						순서에 관계없이 알아서 get함수를 이용해서
 						필요한 데이터를 셋팅할 수 있다.
 		-->
-	
+<!-- 	
 	<insert id="insertMbr" parameterType="mVO">
 		INSERT INTO
 			MEMBER
@@ -126,6 +150,59 @@
 			to_date(#{birth}, 'yyyy/mm/dd'), #{gen}, #{lang}, #{mgr}, #{msg}, sysdate
 		)
 	</insert>
+	 -->
+<!-- 
+	mybatis에서는 연결된 질의 명령을 하나의 질의 실행으로 연속해서 실행 할  수 있다.
+	
+	예]
+		일련번호를 발생한 후 그 번호를 다른곳에서 insert 해야 될 경우
+		
+		특정 테이블의 결과를 이용해서
+		다른 테이블에서 그 내용을 사용해야 하는 경우
+		
+	사용방법]
+		<실행태그 id="">
+			<selectKey keyProperty="키값" 
+						resultType="데이터형태" parameterType="데이터형태" 
+						order="BEFORE || AFTER">
+				선행질의 명령
+			</selectKey>
+			
+			메인질의 명령
+		</실행태그>
+ -->
+	<insert id="insertMbr" parameterType="mVO">
+		<selectKey keyProperty="max" resultType="int" order="BEFORE">
+			SELECT 
+				NVL(MAX(M_NO) + 1, 10001) as MAX1
+			FROM 
+				MEMBER
+		</selectKey>
+		
+		INSERT INTO
+			MEMBER
+		VALUES(
+			#{max}, #{name}, #{id}, #{pw}, #{mail}, 
+			to_date(#{birth}, 'yyyy/mm/dd'), #{gen}, #{lang}, #{mgr}, #{msg}, sysdate
+		)
+	</insert>
+	
+	<update id="updateMbr" parameterType="mVO">
+		UPDATE
+			member
+		SET
+			<if test="btn eq 'ipw'">
+				m_pw = #{pw}
+			</if>
+			<if test="btn eq 'imail'">
+				m_mail = #{mail}
+			</if>
+			<if test="btn eq 'ilang'">
+				m_lang = #{lang}
+			</if>
+		WHERE
+			m_id = #{id}
+	</update>
 	
 	<!-- 회원정보 가져오기 질의명령 -->
 	<select id="selectMbr" resultType="mVO" parameterType="string">
@@ -145,15 +222,5 @@
 			MEMBER
 		WHERE
 			M_ID = #{id}
-	</select>
-	
-	<!-- 회원 아이디 조회 질의명령 -->
-	<select id="countID" resultType="int" parameterType="string">
-		SELECT
-			COUNT(*) CNT
-		FROM
-			member
-		WHERE
-			M_ID = #{sid}
 	</select>
 </mapper>

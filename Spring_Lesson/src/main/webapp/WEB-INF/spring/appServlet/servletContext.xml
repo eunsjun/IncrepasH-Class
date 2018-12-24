@@ -70,6 +70,7 @@
 	-->
 	<resources mapping="/js/**" location="/resources/js/" />
 	<resources mapping="/css/**" location="/resources/css/" />
+	<resources mapping="/img/**" location="/resources/img/" />
 
 	<!-- 
 		*****

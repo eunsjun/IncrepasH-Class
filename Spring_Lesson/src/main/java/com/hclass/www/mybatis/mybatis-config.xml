@@ -20,6 +20,7 @@
 		<!-- <typeAlias alias="int" type="java.lang.Integer" /> -->
 		<typeAlias alias="mVO" type="com.hclass.www.vo.MemberVO" />
 		<typeAlias alias="bVO" type="com.hclass.www.vo.BoardVO" />
+		<typeAlias alias="fileVO" type="com.hclass.www.vo.FileVO" />
 	</typeAliases>
 	
 	<!-- 

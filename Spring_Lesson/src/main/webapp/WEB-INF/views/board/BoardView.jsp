@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/WEB/css/w3.css">
-<script type="text/javascript" src="/WEB/js/jquery.min.js"></script>
+<link rel="stylesheet" href="../css/w3.css">
+<script type="text/javascript" src="../js/jquery.min.js"></script>
 <style>
 	.tpmgn1 {
 		margin-top: 1px;
@@ -14,23 +14,51 @@
 	.tpmgn5 {
 		margin-top: 5px;
 	}
+	.flist {
+		line-height: 10%;
+	}
 </style>
 <script>
-	var pno = ${DATA.pno};
-	var nno = ${DATA.nno};
+	/* var pno = ${DATA.pno};
+	var nno = ${DATA.nno}; */
 	var bno = ${DATA.NO};
 	
 	// ArrayList 크기를 구한다.
 	// var llen = ${LIST.size()};
 	//alert(llen);
 	$(function(){
+		/* 컨트롤러에서 처리하는 방법
 		$('.fbtn').click(function(){
-			var sname = $(this).attr('id');
-			sname = sname.substring(1);
-			// $(location).attr('href', '../upload/'+sname);
-			$('#sname').val(sname);
+			var sName = $(this).attr('id');
+			sName = sName.substring(1);
+			//$(location).attr('href', '../img/'+sName);
+			$('#sName').val(sName);
 			$('#ffrm').submit();
 		});
+		*/
+		
+		// 뷰 수를 ajax로 엡데이트 해주고 href 속성으로 처리하는 방법
+		$('.fbtn').click(function(){
+			var sName = $(this).attr('id');
+			sName = sName.substring(1);
+			//$(location).attr('href', '../img/'+ sName);
+			$.ajax({
+				url:"./FiHit.class",
+				type: "POST",
+				dataType: 'text',
+				data:{
+					sName : sName
+				},
+				success:function(data){
+					$(location).attr('href', '../img/'+ sName);
+				},
+				error: function(){
+					alert("요청 실패!");
+				}
+			});
+		});
+		
+		
 		/* 
 		$('#pre').click(function(){
 			if(${DATA.pno ne 0}){
@@ -66,7 +94,8 @@
 		});
 		
 		$('#edit').click(function(){
-			$('#bno').val(${DATA.NO});
+			$('#no').val('${DATA.NO}');
+			//alert('#bno : ' + ${DATA.NO});
 			$('#frm').attr('action', './BoardEdit.class');
 			$('#frm').submit();
 		});
@@ -75,11 +104,12 @@
 </head>
 <body>
 	<form method="POST" id="frm">
-		<input type="hidden" name="bno" id="bno" />
+		<input type="hidden" name="no" id="no" />
 	</form>
 	<form method="post" id="ffrm" action="./FiHit.class">
-		<input type="hidden" name="sname" id="sname" />
+		<input type="hidden" name="sName" id="sName" />
 	</form>
+	
 	<div class="w3-col m3"><p></p></div>
 	<div class="w3-col m6 w3-container">
 		<h2 class="w3-margin-top w3-padding w3-margin-bottom w3-center w3-round-large w3-card-4 w3-deep-purple">게시판 글 보기</h2>
@@ -108,11 +138,22 @@
 			<div class="w3-col w3-content">
 				<div class="w3-col m2"><h4 class="w3-center w3-text-gray">첨부파일 : </h4></div>
 				
+				<!--  -->
+				
+				<div class="w3-col m10 w3-container">
+				<ol>
 				<c:forEach var="VO" items="${LIST}">
-				<div class="w3-col m3 w3-container">
-					<button class="w3-col w3-button w3-small w3-lime fbtn" id="f${VO.sName}">${VO.oName}</button>
-				</div>
+					<li class="w3-col">
+					<div class="w3-col flist"> <!-- line-height: 10%; -->
+						<div class="w3-content w3-col m9"><h6>${VO.oName}</h6></div>
+						<div class="w3-col m3 w3-button w3-lime fbtn" id="f${VO.sName}">보기</div>
+					</div>
+					</li>
 				</c:forEach>
+				</ol>
+				</div>
+				
+				<!--  -->
 				<hr class="w3-col tpmgn1">
 			</div>
 			</c:if>

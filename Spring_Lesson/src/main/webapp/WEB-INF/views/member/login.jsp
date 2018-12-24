@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/WEB/css/w3.css">
-<script type="text/javascript" src="/WEB/js/jquery.min.js"></script>
+<link rel="stylesheet" href="../css/w3.css">
+<script type="text/javascript" src="../js/jquery.min.js"></script>
 <style>
 	.rround {
 		border-radius: 0 5px 5px 0;

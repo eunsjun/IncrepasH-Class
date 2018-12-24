@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="../css/w3.css">
+<script type="text/javascript" src="../js/jquery.min.js"></script>
 <style>
 	.btmargin {
 		margin-bottom: 10px;
@@ -49,7 +49,6 @@
 			$(location).attr('href', '/WEB/board/BoardWriteForm.class');
 		});
 		
-
 		$('.bdata').click(function(){
 			var sno = $(this).attr('id'); // f10003 ==> 10003
 			sno = sno.substring(1);
@@ -91,8 +90,8 @@
 			}
 			$(location).attr('href', loc);
 		});
-		
 		 --%>
+		 
 		 <c:if test="${not empty SID}">
 		 	$(".nanum").addClass("w3-quarter");
 		 </c:if>

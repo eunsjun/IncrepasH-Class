@@ -21,15 +21,14 @@
 		먼저 dataSource 사용을 등록해주자.
 		WebDBCP 클래스가 다른곳에 주입되어하므로 <bean>처리가 되어야 한다.
 	-->
-	<bean id="dbcp" class="com.hclass.www.util.WebDBCP" />
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
 		<property name="username" value="increpas" />
 		<property name="password" value="increpas" />
-		
 		<property name="maxActive" value="8" />
 	</bean>
+	<bean id="dbcp" class="com.hclass.www.util.WebDBCP" />
 
 	<!-- myBatis 환경 설정 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

@@ -16,7 +16,21 @@ public class MemberVO {
 	private String sDate;
 	private Date inDate;
 	private Time inTime;
+	private String btn;
+	private int max;
 	
+	public int getMax() {
+		return max;
+	}
+	public void setMax(int max) {
+		this.max = max;
+	}
+	public String getBtn() {
+		return btn;
+	}
+	public void setBtn(String btn) {
+		this.btn = btn;
+	}
 	public int getmNo() {
 		return mNo;
 	}

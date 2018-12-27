@@ -24,8 +24,11 @@ public class FileService {
 		 */
 		String[] tmp = new String[upfile.length];
 		
-		String path = "C:\\sh\\Data\\Class\\git\\IncrepasH-Class\\Spring_Lesson\\src\\main\\webapp\\resources\\img";
-		for(int i = 0 ; i < upfile.length; i++) {
+		String path = this.getClass().getResource("").getPath();
+		path = path.substring(0, path.indexOf("/Spring_Lesson"));
+		path = path + "/Spring_Lesson/webapp/resouces/img";
+/*		String path = "C:\\sh\\Data\\Class\\git\\IncrepasH-Class\\Spring_Lesson\\src\\main\\webapp\\resources\\img";
+*/		for(int i = 0 ; i < upfile.length; i++) {
 			// 원본 이름 알아내기
 			String oriName = upfile[i].getOriginalFilename();
 			// 그런데 만약 이 파일이 업로드 되지 않았다면 작업을 진행할 수 없다.
@@ -45,7 +48,7 @@ public class FileService {
 				File file = new File(path, saveName);
 				upfile[i].transferTo(file);
 			}catch(Exception e) {
-				e.printStackTrace();
+				System.out.println("### 파일 에러 ###");
 			}
 		}
 		

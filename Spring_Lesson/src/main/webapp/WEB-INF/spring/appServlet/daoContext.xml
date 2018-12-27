@@ -9,5 +9,6 @@
 
 	<bean id="mDAO" class="com.hclass.www.DAO.MemberDAO" />
 	<bean id="bDAO" class="com.hclass.www.DAO.BoardDAO" />
+	<bean id="fDAO" class="com.hclass.www.DAO.FileDAO" />
 	
 </beans>

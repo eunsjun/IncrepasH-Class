@@ -9,5 +9,6 @@
 
 	<bean id="mSrvc" class="com.hclass.www.services.MemberService" />
 	<bean id="bSrvc" class="com.hclass.www.services.BoardService" />
+	<bean id="fSrvc" class="com.hclass.www.services.FileService" />
 	
 </beans>

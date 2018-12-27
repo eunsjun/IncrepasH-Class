@@ -88,5 +88,7 @@
 		WHERE
 			FI_SAVENAME = #{sName}
 	</update>
-
+	
+	
+	
 </mapper>

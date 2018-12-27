@@ -38,6 +38,22 @@ public class Board {
 		return mv;
 	}
 	
+	// 게시판 글등록 요청 처리함수
+	@RequestMapping("BoardWriteProc.class")
+	public ModelAndView boardWriteProc(BoardVO bVO, FileVO fileVO, ModelAndView mv) {
+		// 할일
+		// 데이터 받고
+		
+		// 데이터베이스에 보내고
+		
+		// 데이터 받고
+		
+		// 데이터 넘기고
+		
+		// 뷰 부르고
+		return mv;
+	}
+	
 	// 게시판 상세보기 요청 함수
 	@RequestMapping("BoardView.class")
 	public ModelAndView boardView(ModelAndView mv, BoardVO bVO) {

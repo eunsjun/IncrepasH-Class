@@ -89,6 +89,18 @@
 			FI_SAVENAME = #{sName}
 	</update>
 	
-	
+	<insert id="insertBrd" parameterType="bVO">
+		<selectKey keyProperty="max" resultType="int" order="BEFORE">
+			SELECT
+				NVL(MAX(b_no) + 1, 10001) AS MAXNO
+			FROM
+				board
+		</selectKey>
+		INSERT INTO
+			board(B_NO, B_TITLE, B_ID, B_BODY)
+		values(
+			#{max}, #{title}, #{id}, #{body}
+		)
+	</insert>
 	
 </mapper>

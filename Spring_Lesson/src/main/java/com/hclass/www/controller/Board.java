@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.hclass.www.DAO.*;
 import com.hclass.www.services.*;
@@ -21,6 +22,8 @@ public class Board {
 	BoardDAO bDAO;
 	@Autowired
 	BoardService bSrvc;
+	@Autowired
+	FileService fSrvc;
 	
 	// 게시판 글쓰기 폼 요청 함수
 	@RequestMapping("BoardWriteForm.class")
@@ -40,17 +43,38 @@ public class Board {
 	
 	// 게시판 글등록 요청 처리함수
 	@RequestMapping("BoardWriteProc.class")
-	public ModelAndView boardWriteProc(BoardVO bVO, FileVO fileVO, ModelAndView mv) {
+	public ModelAndView boardWriteProc(BoardVO bVO, FileVO fileVO, ModelAndView mv, RedirectView rv) {
 		// 할일
 		// 데이터 받고
+		/*
+		 * 파라미터를 받는데
+		 * 지금까지 배웠던 방식으로도 얼마든지 파리미터를 받을 수 있다.
+		 * 그런데 이번에는 파일을 전송해야되는 기능이 추가가 되어서
+		 * 파일 전송은 스트림으로 해결을 해야한다.
+		 * 파라미터의 양이 많으므로 VO에 담아서 받기로 하자.
+		 */
 		
+		// 첫번째로 파일을 업로드 한다.
+		String[] saveName = fSrvc.uploadSrvc(bVO.getUpfile());
 		// 데이터베이스에 보내고
-		
+		bSrvc.insertBrd(bVO, fileVO);
 		// 데이터 받고
-		
 		// 데이터 넘기고
+		// 그런데 지금 처리작업은 데이터 베이스에 insert 명령이 실행되므로 
+		// 요청이 남아있다면 한버더 추가명령이 실행될 오류가 발생할 수 있다.
+		// 따라서 이 경우는 요청이 새롭게 바뀌어야 될 것이다.
 		
-		// 뷰 부르고
+		// 뷰 부르고 	<==  Redirect 방식으로 부른다.
+		rv.setUrl("../board/Board.class");
+		mv.setView(rv);
+		return mv;
+	}
+	
+	// 게시판 리스트 가져오기 요청 함수
+	@RequestMapping("Board.class")
+	public ModelAndView boardList(ModelAndView mv) {
+		mv.addObject("LIST", bDAO.boardAllDao());
+		mv.setViewName("board/board");
 		return mv;
 	}
 	

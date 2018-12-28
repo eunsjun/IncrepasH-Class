@@ -42,4 +42,8 @@ public class BoardDAO {
 		sqlSession.update("bSQL.addHit", fileVO);
 		return;
 	}
+	
+	public void addBrd(BoardVO bVO) {
+		sqlSession.insert("bSQL.insertBrd", bVO);
+	}
 }

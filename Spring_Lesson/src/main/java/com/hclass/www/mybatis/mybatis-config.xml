@@ -29,6 +29,7 @@
 	<mappers>
 		<mapper resource="com/hclass/www/SQL/MemberSQL.xml" />
 		<mapper resource="com/hclass/www/SQL/BoardSQL.xml" />
+		<mapper resource="com/hclass/www/SQL/FileSQL.xml" />
 	</mappers>
 	
 </configuration>

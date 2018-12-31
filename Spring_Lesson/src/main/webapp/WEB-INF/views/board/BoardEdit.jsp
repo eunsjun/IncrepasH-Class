@@ -39,7 +39,7 @@ $(function(){
 		/* alert('########'); */
 		if(ln < 4){
 			ln = ln + 1;
-			alert(ln);
+			//alert(ln);
 			$('.p1').append('<input type="file" class="w3-col w3-input w3-margin-top file" />');
 		}
 	});

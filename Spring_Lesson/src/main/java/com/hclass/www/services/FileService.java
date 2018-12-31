@@ -23,6 +23,9 @@ public class FileService {
 		 * 
 		 * 저장 이름을 기억할 변수를 만들어 놓자.
 		 */
+		
+		int len = upfile.length;
+		System.out.println("############### len : " + len);
 		String[] tmp = new String[upfile.length];
 		
 		String path = this.getClass().getResource("").getPath();

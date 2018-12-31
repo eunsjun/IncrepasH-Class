@@ -8,6 +8,7 @@ import javax.servlet.http.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.*;
 import org.springframework.web.servlet.*;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -44,6 +45,7 @@ public class Board {
 	// 게시판 글등록 요청 처리함수
 	@RequestMapping("BoardWriteProc.class")
 	public ModelAndView boardWriteProc(BoardVO bVO, FileVO fileVO, ModelAndView mv, RedirectView rv) {
+		
 		// 할일
 		// 데이터 받고
 		/*
@@ -55,6 +57,16 @@ public class Board {
 		 */
 		
 		// 첫번째로 파일을 업로드 한다.
+		/*
+		int len = 0;
+		try {
+			len = bVO.getUpfile().length;
+			System.out.println("################ cont : " + len);
+		} catch(Exception e) {
+			System.out.println("################ cont : " + len);
+		}
+		System.out.println("################ controller len : " + len);
+		 */
 		String[] saveName = fSrvc.uploadSrvc(bVO.getUpfile());
 		// 데이터베이스에 보내고
 		bSrvc.insertBrd(bVO, fileVO);

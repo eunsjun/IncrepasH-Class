@@ -18,7 +18,7 @@
 			SELECT
 				NVL(MAX(FI_NO) + 1 , 10001) AS MAXNO
 			FROM
-				fileBoard
+				fi_Board
 		</selectKey>
 		INSERT INTO
 			FI_BOARD(fi_no, fi_bno, fi_oriname, fi_savename, fi_len, fi_dir)
